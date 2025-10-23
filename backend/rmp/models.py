@@ -46,14 +46,36 @@ class Rating(models.Model):
     rating_id = models.AutoField(primary_key=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-    score = models.IntegerField()
-    difficulty = models.IntegerField()
-    comment = models.TextField()
+    status = models.CharField(
+        max_length=50,
+        choices=[
+            ("current", "Currently attending"),
+            ("completed", "Completed"),
+        ],
+    )
+    rating_text = models.TextField(max_length=500, blank=True)
+    tags = models.ManyToManyField('Tag', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
     def __str__(self):
         return f"Rating {self.rating_id} for {self.course.code} by {self.professor.name}"
     
+class RatingCategory(models.Model):
+    rating_category_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class RatingScore(models.Model):
+    rating_score_id = models.AutoField(primary_key=True)
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE, related_name="scores")
+    category = models.ForeignKey(RatingCategory, on_delete=models.CASCADE, related_name="scores")
+    score = models.PositiveSmallIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.category.name}: {self.score}"
+
 class Tag(models.Model):
     tag_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
