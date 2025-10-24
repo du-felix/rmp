@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function RatingSliderCard({ label, value, onChange }) {
+export default function RatingSlider({ label, value, onChange }) {
   const [hoverValue, setHoverValue] = useState(null);
   const [activeButton, setActiveButton] = useState(null); // for press animation
 
@@ -37,7 +37,7 @@ export default function RatingSliderCard({ label, value, onChange }) {
   };
 
   return (
-    <div className="border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition bg-white">
+    <div className="border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition bg-white w-full">
       {/* Category title */}
       <h3 className="text-sm font-semibold text-gray-800 mb-4">{label}</h3>
 
