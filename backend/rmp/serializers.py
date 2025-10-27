@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import University, Department, Professor, Course, Rating
+from .models import University, Department, Professor, Course, Rating, Tag, RatingScore, RatingCategory
 
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,12 +9,13 @@ class UniversitySerializer(serializers.ModelSerializer):
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
-        fields = '__all__'
+        fields = ['dept_id', 'name', 'university']
 
 class ProfessorSerializer(serializers.ModelSerializer):
+    department = DepartmentSerializer(read_only=True)
     class Meta:
         model = Professor
-        fields = '__all__'
+        fields = ['prof_id', 'name', 'department', 'title', 'sex']
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,4 +25,19 @@ class CourseSerializer(serializers.ModelSerializer):
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
+        fields = '__all__'
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ['tag_id', 'name']
+
+class RatingScoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RatingScore
+        fields = '__all__'
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RatingCategory
         fields = '__all__'

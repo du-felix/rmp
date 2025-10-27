@@ -10,7 +10,7 @@ class RatingScoreInline(admin.TabularInline):
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ("professor", "course", "average_score", "status", "created_at")
+    list_display = ("professor", "course", "status", "created_at")
     list_filter = ("status", "professor", "course", "created_at")
     search_fields = ("professor__name", "course__name", "review_text")
     inlines = [RatingScoreInline]
@@ -19,8 +19,8 @@ class RatingAdmin(admin.ModelAdmin):
 
 @admin.register(RatingCategory)
 class RatingCategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "description")
-    search_fields = ("name",)
+    list_display = ("name", "description", "label")
+    search_fields = ("name", "label")
 
 
 @admin.register(Tag)

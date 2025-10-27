@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 //import { FaPen } from "react-icons/fa"; // for the pencil icon
 
-export default function ReviewTextSection() {
-  const [review, setReview] = useState("");
+export default function ReviewTextSection({ required = false, value, onChange }) {
   const maxLength = 500;
 
   return (
-    <div className="border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition bg-white max-w-4xl">
+    <div className="border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition bg-white max-w-3xl">
       {/* Header */}
-      <h3 className="text-sm font-semibold text-gray-800 mb-4">Write a Review*</h3>
+      <h3 className="text-sm font-semibold text-gray-800 mb-4">
+        Write a Review{required && <span className="text-red-500">*</span>}
+      </h3>
 
       {/* Guidelines box */}
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
@@ -43,14 +44,14 @@ export default function ReviewTextSection() {
       {/* Text area */}
       <div className="relative">
         <textarea
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           maxLength={maxLength}
           placeholder="What do you want your fellow students to know?"
           className="w-full h-40 p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
         />
         <div className="absolute bottom-2 right-3 text-xs text-gray-500">
-          {review.length}/{maxLength}
+          {value.length}/{maxLength}
         </div>
       </div>
     </div>

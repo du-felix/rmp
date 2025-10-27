@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function TagRater({ selectedTags = [], onChange }) {
+export default function TagRater({ label, selectedTags = [], onChange, required = false}) {
   const [tags, setTags] = useState([]);
   const [pressedTag, setPressedTag] = useState(null);
   const MAX_TAGS = 5;
@@ -34,11 +34,11 @@ export default function TagRater({ selectedTags = [], onChange }) {
   const isAtLimit = selectedTags.length >= MAX_TAGS;
 
   return (
-    <div className="border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition bg-white max-w-4xl">
+    <div className="border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition bg-white max-w-3xl">
       {/* Header */}
       <div className="flex justify-between items-center mb-3">
         <h3 className="text-sm font-semibold text-gray-800">
-          Describe your Professor
+          {label}{required && <span className="text-red-500">*</span>}
         </h3>
         <span
           className={`text-xs font-medium ${
